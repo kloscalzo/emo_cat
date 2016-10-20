@@ -2,7 +2,9 @@
 //18 October 2016
 //Creative Coding Midterm - "Emo Cat"
 
-//Emo Cat will ask the user a series of questions, to which the user replies either "Yes", "No", "Of Course", or "Never. Emo Cat's emotions will change based off the user's answers.
+//Emo Cat will ask the user a series of questions, to which the user replies either "Yes", "No", "Of Course", or "Never. Emo Cat's emotions will change based off the user's answers. 
+
+//10/20 Update -- Sound has been added!!
 
 var questionIndex = 0;
 var numQuestions = 8; //number of cases/q's
@@ -10,6 +12,18 @@ var xPos = 0;
 var yPos = 0;
 var sizeX = 600;
 var sizeY = 440;
+//update - audio variables
+var yesMeow;
+var noMeow;
+var ofcMeow;
+var neverMeow;
+
+function preload() {
+    yesMeow = loadSound("assets/yes_meow.wav");
+    noMeow = loadSound("assets/no_meow.wav");
+    ofcMeow = loadSound("assets/ofc_meow.wav");
+    neverMeow = loadSound("assets/never_meow.wav");
+}
 
 function setup() {
     createCanvas(600, 500);
@@ -110,6 +124,16 @@ function keyReleased() {
 
     //'Yes' Option
     if (keyCode == UP_ARROW) {
+
+        //audio
+        ofcMeow.stop();
+        neverMeow.stop();
+        noMeow.stop();
+
+        yesMeow.setVolume(0.3);
+        yesMeow.play();
+
+
         strokeWeight(1);
         arc(width / 2, height / 2 + 26, 19, 19, 0, PI, CHORD);
 
@@ -180,13 +204,20 @@ function keyReleased() {
         ellipse(500, 205, 80, 80);
         ellipse(540, 325, 10, 10);
         ellipse(45, 475, 30, 30);
-
     }
 
     //--------------------------------------------
 
     //'NO' Option    
     if (keyCode == DOWN_ARROW) {
+
+        //audio
+        ofcMeow.stop();
+        neverMeow.stop();
+        yesMeow.stop();
+
+        noMeow.setVolume(0.3);
+        noMeow.play();
 
         //Emo Cat figure
         strokeWeight(1);
@@ -246,14 +277,21 @@ function keyReleased() {
         ellipse(500, 205, 80, 80);
         ellipse(540, 325, 10, 10);
         ellipse(45, 475, 30, 30);
-
-
     }
 
     //--------------------------------------------
 
     //'OF COURSE' Option
     function ofCourse() {
+
+        //audio
+        yesMeow.stop();
+        neverMeow.stop();
+        noMeow.stop();
+
+        ofcMeow.setVolume(0.3);
+        ofcMeow.play();
+
         fill(255, 225, 150);
         ellipse(width / 2, height / 2 + 90, 100, 150); //body
 
@@ -291,7 +329,7 @@ function keyReleased() {
         //mouth
         fill(255, 0, 0);
         arc(width / 2, height / 2 + 20, 24, 24, 0, PI, CHORD);
-        
+
         //left arm
         stroke(0);
         fill(255, 205, 138);
@@ -299,7 +337,7 @@ function keyReleased() {
 
         //right arm  
         triangle(width / 2 + 50, height / 2 + 70, width / 2, height / 2 + 30, width / 2 + 40, height / 2 + 45);
-        
+
         fill(255, 20, 147);
         ellipse(470, 465, 30, 30);
         fill(0, 0, 255);
@@ -333,6 +371,16 @@ function keyReleased() {
 
     //'NEVER' Option
     function neverEver() {
+
+        //audio
+        ofcMeow.stop();
+        yesMeow.stop();
+        noMeow.stop();
+
+        neverMeow.setVolume(0.3);
+        neverMeow.play();
+
+
         fill(255, 225, 150);
         ellipse(width / 2, height / 2 + 90, 100, 150); //body
 
@@ -404,12 +452,10 @@ function keyReleased() {
         fill(255);
         textSize(25);
         text("GRR!", 99, height / 2 + 22);
-
-
     }
-    if (keyCode == RIGHT_ARROW) {
-        neverEver();
-    }
+        if (keyCode == RIGHT_ARROW) {
+            neverEver();
+        }
 }
 
 function draw() {
